@@ -1,0 +1,20 @@
+name: CI Quality Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v4
+
+      - name: Afficher la branche source
+        run: echo "La PR provient de la branche ${{ github.head_ref }}"
+
+      - name: Confirmation
+        run: echo "Check terminé"
