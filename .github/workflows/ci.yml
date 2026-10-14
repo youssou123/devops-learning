@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-with-cache:
+  build-and-package:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,3 +21,18 @@ jobs:
 
       - name: Installation des dépendances
         run: npm ci
+
+      # Génération fictive d'un dossier de distribution (dist)
+      - name: Simulation du Build
+        run: |
+          mkdir dist
+          echo "Build généré le $(date)" > dist/build-info.txt
+          echo "console.log('App ready');" > dist/app.js
+
+      # Sauvegarde du dossier dist sous forme d'artefact sur GitHub
+      - name: Sauvegarde de l'artefact de build
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build
+          path: dist/
+          retention-days: 5
