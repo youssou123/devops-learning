@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  # Service 1 : Notre application Node.js
+  web:
+    build: .
+    ports:
+      - "8080:3000"
+    environment:
+      - REDIS_URL=redis://redis-db:6379
+    depends_on:
+      - redis-db
+
+  # Service 2 : La base de données de cache Redis
+  redis-db:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
