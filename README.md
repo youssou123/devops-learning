@@ -53,3 +53,6 @@ cd devops-learning
 
 # 2. Lancer l'application et Redis avec Docker Compose
 docker compose up --build -d
+### 6. 🏗️ Infrastructure as Code (IaC) avec Terraform
+- **Déclaratif** : Gestion et provisionnement de ressources locales et de conteneurs Docker via des fichiers HCL (`.tf`).
+- **Cycle de vie IaC** : Maîtrise des commandes `terraform init`, `plan`, `apply` et `destroy`.
