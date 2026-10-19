@@ -8,3 +8,5 @@ crash.log
 
 # Terraform lock file
 .terraform.lock.hcl
+# Terraform variables and secrets
+*.tfvars

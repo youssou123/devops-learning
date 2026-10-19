@@ -1,33 +1,33 @@
 terraform {
   required_providers {
-    docker = {
-      source  = "kreuzwerker/docker"
-      version = "~> 3.0"
+    render = {
+      source  = "render-oss/render"
+      version = "~> 1.3.0"
     }
   }
 }
 
-provider "docker" {}
-
-# 1. Télécharger l'image Nginx
-resource "docker_image" "nginx" {
-  name         = "nginx:alpine"
-  keep_locally = false
+provider "render" {
+  api_key  = var.render_api_key
+  owner_id = var.owner_id
 }
 
-# 2. Lancer un conteneur Nginx
-resource "docker_container" "nginx_web" {
-  image = docker_image.nginx.image_id
-  name  = "demo-terraform-nginx"
+# Déclaration d'un Web Service Docker sur Render
+resource "render_web_service" "app" {
+  name   = "devops-learning-iac"
+  region = "frankfurt"
+  plan   = "free"
 
-  ports {
-    internal = 80
-    external = 8081
+  runtime_source = {
+    image = {
+      image_url = "ghcr.io/youssou123/devops-learning"
+      tag       = "latest"
+    }
   }
-}
 
-# 3. Afficher l'URL d'accès
-output "web_url" {
-  value       = "http://localhost:8081"
-  description = "URL d'accès au serveur Nginx"
+  env_vars = {
+    "NODE_ENV" = {
+      value = "production"
+    }
+  }
 }
